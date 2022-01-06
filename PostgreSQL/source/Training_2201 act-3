@@ -1,0 +1,99 @@
+create table Customer_table (
+	Cust_id int,
+	First_name varchar,
+	Last_name varchar,
+	age int,
+	email_id varchar
+	);
+	
+insert into customer_table values
+(1, 'bee', 'cee', 32, 'bc@xyz.com');
+
+insert into customer_table (cust_id, first_name, age, email_id) values
+(2,'dee',23,'d@xyz.com');
+
+insert into customer_table values
+(3,'ee','ef',27,'ef@xyz.com'),
+(4,'gee','eh',35,'gh@xyz.com');
+
+copy customer_table from 'E:\Fear\Univ\Big_data\Training\PostSQL\data\copy.csv' delimiter ',' csv header;
+copy customer_table from 'E:\Fear\Univ\Big_data\Training\PostSQL\data\copytext.txt' delimiter ',';
+
+-- ex.2
+create table Science_class (
+	Enrollment_NO int,
+	Name varchar,
+	Science_Marks int
+);
+insert into Science_class values
+(1,'Popeye',33),
+(2,'Olive',54),
+(3,'Brutus',98);
+copy Science_class from 'E:\Fear\Univ\Big_data\Training\PostSQL\data\Student.csv' delimiter ',' csv header;
+select * from Science_class;
+
+
+
+select first_name from customer_table;
+select first_name,last_name from customer_table;
+select * from customer_table;
+
+select distinct first_name from customer_table; -- 중복 제거
+
+select first_name from customer_table where age =25;
+select first_name,age from customer_table where age >25;
+select * from customer_table where first_name ='Gee';
+
+select first_name, last_name, age 
+from customer_table 
+where age>20 
+	and age<30;
+	
+select first_name, last_name, age 
+from customer_table 
+where age<20 
+	or age>30
+	or first_name = 'Gee';
+	
+select * from customer_table where not age>=25;
+
+-- ex.3
+select * from science_class;
+select name from science_class where science_marks >60;
+select * from science_class where science_marks >35 and science_marks <60;
+select * from science_class where science_marks <=35 or science_marks >=60;
+
+
+
+update customer_table set age = 17, Last_name = 'Pe'
+where cust_id = 2;
+update customer_table set email_id = 'gee@xyz.com'
+where First_name = 'Gee' or First_name = 'gee';
+
+delete from customer_table where cust_id = 6;
+delete from customer_table where age > 30;
+delete from customer_table;
+
+alter table customer_table add test varchar(255);
+alter table customer_table drop test;
+alter table customer_table drop column test;
+alter table customer_table alter column age type varchar(255);
+alter table customer_table rename column email_id to customer_email;
+
+alter table customer_table alter column cust_id set not null;
+insert into customer_table(first_name, last_name, age, customer_email)
+values ('a','b','25','d'); -- cuz. cust_id << not null
+alter table customer_table alter column cust_id drop not null;
+
+alter table customer_table add constraint cust_id check (cust_id>0);
+insert into customer_table values (-1,'a','b','25','d'); -- cuz. cust_id > 0
+
+alter table customer_table add primary key (cust_id); -- cuz. each row's cust_id already has [null]
+delete from customer_table;
+
+select * from customer_table;
+
+-- ex.4
+update science_class set science_marks = 45 where name = 'Popeye';
+delete from science_class where name = 'Robb';
+alter table science_class rename column name to student_name;
