@@ -1,0 +1,54 @@
+create table DB_01.customer_table (
+    cust_id int64,
+    First_name string,
+    Last_name string,
+    age int64,
+    email string
+);
+
+
+insert into DB_01.customer_table
+values (1,'bee','cee',32,'bc@xyz.com');
+
+insert into DB_01.customer_table (cust_id,first_name,age,email)
+values (2,'dee',23,'d@xyz.com');
+
+insert into DB_01.customer_table values
+(3,'ee','ef',27,'ef@xyz.com'),
+(4,'gee','eh',35,'gh@xyz.com');
+
+-- csv upload --
+    -- GCP --
+    -- data set - create table - upload(or Drive ect..)
+    -- Advanced options - ignore error  header skip
+select  from testproject-337318.DB_01.cust_upload_drive;
+select  from testproject-337318.DB_01.cust_upload_drive_sheet;
+
+    -- Cloud SDK -- httpscloud.google.comsdk
+    --  ```bq load --skip_leading_rows=1 DB_01.customer_table copy.csv```
+
+
+
+select first_name from DB_01.customer_table;
+select first_name,last_name from DB_01.customer_table;
+select  from DB_01.customer_table;
+
+select distinct first_name from DB_01.customer_table; -- 중복 제거
+
+select first_name from DB_01.customer_table where age =25;
+select first_name,age from DB_01.customer_table where age 25;
+select  from DB_01.customer_table where first_name ='Gee';
+
+select first_name, last_name, age 
+from DB_01.customer_table 
+where age20 
+	and age30;
+	
+select first_name, last_name, age 
+from DB_01.customer_table 
+where (age20 and age30)
+	or first_name = 'bee';
+	
+select  from DB_01.customer_table where not age=25;
+select  from DB_01.customer_table where age = 25;
+select  from DB_01.customer_table where age  25; -- =!(not .eq.) can use to 
